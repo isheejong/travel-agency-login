@@ -16,7 +16,7 @@ push-to-releases:
         working-dir: /pipeline/source/
         username: $OKE_USERNAME
         password: $OKE_PASSWORD
-        repository: $OKE_REPOSITORY/$WERCKER_APPLICATION_NAME
+        repository: $OKE_REPOSITORY
         registry: $OKE_REGISTRY
 
 deploy-to-oke:
@@ -35,11 +35,11 @@ deploy-to-oke:
         server: $KUBERNETES_MASTER
         token: $KUBERNETES_TOKEN
         insecure-skip-tls-verify: true
-        command: delete -f $WERCKER_ROOT/kubernetes-deployment.yml --namespace=$APP_LOGIN_NAMESPACE --ignore-not-found=true
+        command: delete -f $WERCKER_ROOT/kubernetes-deployment.yml --namespace=$APP_NAMESPACE --ignore-not-found=true
 
     - kubectl:
         name: create deplyoment
         server: $KUBERNETES_MASTER
         token: $KUBERNETES_TOKEN
         insecure-skip-tls-verify: true
-        command: create -f $WERCKER_ROOT/kubernetes-deployment.yml --namespace=$APP_LOGIN_NAMESPACE
+        command: create -f $WERCKER_ROOT/kubernetes-deployment.yml --namespace=$APP_NAMESPACE
